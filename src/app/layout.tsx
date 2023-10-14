@@ -7,6 +7,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Is It Fall?",
   description: "The World's #1 site for figuring out if it's fall",
+  other: { "google-adsense-account": "ca-pub-2164675398479814" },
 };
 
 export default function RootLayout({
