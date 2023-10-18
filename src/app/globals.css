@@ -77,13 +77,13 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  color: rgb(239, 227, 219);
 }
 
 html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
-  color-scheme: dark;
 }
 
 body {
@@ -99,5 +99,6 @@ a {
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
+    color: rgb(239, 227, 219);
   }
 }
