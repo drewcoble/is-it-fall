@@ -83,6 +83,11 @@
 
 .center h1 {
   margin-bottom: 2rem;
+  letter-spacing: 0.125rem;
+}
+
+.center h2 {
+  letter-spacing: 0.125rem;
 }
 
 .center::before {
