@@ -1,7 +1,7 @@
 "use client";
 
-import { createTheme } from "@material-ui/core";
-import createPalette from "@material-ui/core/styles/createPalette";
+import { createTheme } from "@mui/material";
+import createPalette from "@mui/material/styles/createPalette";
 
 const fallPalette = createPalette({
   primary: {
@@ -9,7 +9,8 @@ const fallPalette = createPalette({
     main: "#8b4513",
   },
   secondary: {
-    main: "#0f0",
+    contrastText: "#efe3db",
+    main: "#800000",
   },
 });
 

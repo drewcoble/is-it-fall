@@ -1,13 +1,8 @@
 "use client";
 import styles from "./page.module.css";
 import useFall from "./hooks/useFall";
-import {
-  Card,
-  CardContent,
-  CircularProgress,
-  ThemeProvider,
-} from "@material-ui/core";
 import fallTheme from "./fallTheme";
+import { CircularProgress, ThemeProvider } from "@mui/material";
 
 export default function Home() {
   const { isFall, isLoading } = useFall();
