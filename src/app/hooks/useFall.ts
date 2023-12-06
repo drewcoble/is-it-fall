@@ -1,11 +1,6 @@
-// "use client";
 import { useEffect, useState } from "react";
 
 export default function useFall(): { isFall?: boolean; isLoading?: boolean } {
-  // const today = new Date();
-  // const month = today.getMonth();
-  // const day = today.getDate();
-
   const [month, setMonth] = useState<number>(0);
   const [day, setDay] = useState<number>(1);
 
@@ -20,8 +15,9 @@ export default function useFall(): { isFall?: boolean; isLoading?: boolean } {
   const FALL_START = { month: 8, day: 23 };
   const FALL_END = { month: 10, day: 20 };
 
-  // let fall: boolean;
   switch (month) {
+    case 3:
+      return { isFall: day == 1 }; //April Fool's Day
     case 8:
       return { isFall: day >= FALL_START.day };
     case 9:
