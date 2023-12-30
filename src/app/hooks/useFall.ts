@@ -1,31 +1,83 @@
 import { useEffect, useState } from "react";
+import seasonData from "../data";
+import { ISeason, ISeasonObject, ISeasonYear } from "../types/seasonTypes";
 
-export default function useFall(): { isFall?: boolean; isLoading?: boolean } {
-  const [month, setMonth] = useState<number>(0);
-  const [day, setDay] = useState<number>(1);
+const adjustHour = (season: ISeason): number => {
+  return season.tod === "pm" ? season.hour + 12 : season.hour;
+};
+
+const buildSeasonObject = (year: ISeasonYear): ISeasonObject => {
+  const springAdjustedHour = adjustHour(year.spring);
+  const summerAdjustedHour = adjustHour(year.summer);
+  const fallAdjustedHour = adjustHour(year.fall);
+  const winterAdjustedHour = adjustHour(year.winter);
+
+  return {
+    spring: Date.UTC(
+      year.year,
+      year.spring.month,
+      year.spring.day,
+      springAdjustedHour,
+      year.spring.minute
+    ),
+    summer: Date.UTC(
+      year.year,
+      year.summer.month,
+      year.summer.day,
+      summerAdjustedHour,
+      year.summer.minute
+    ),
+    fall: Date.UTC(
+      year.year,
+      year.fall.month,
+      year.fall.day,
+      fallAdjustedHour,
+      year.fall.minute
+    ),
+    winter: Date.UTC(
+      year.year,
+      year.winter.month,
+      year.winter.day,
+      winterAdjustedHour,
+      year.winter.minute
+    ),
+  };
+};
+
+export default function useFall(): {
+  isFall?: boolean;
+  isLoading?: boolean;
+  season?: string;
+} {
+  const [today, setToday] = useState<number>(0);
+  const [currentYearSeasons, setCurrentYearSeasons] = useState<ISeasonObject>({
+    spring: 0,
+    summer: 0,
+    fall: 0,
+    winter: 0,
+  });
 
   useEffect(() => {
-    const today = new Date();
-    setMonth(today.getMonth());
-    setDay(today.getDate());
+    const year = new Date().getUTCFullYear();
+    const today = new Date().getTime(); // UTC time
+
+    const thisYear = seasonData.find((x) => x.year === year) as ISeasonYear;
+    // const nextYear = seasonData.find((x) => x.year === year + 1) as ISeasonYear;
+
+    const thisYearSeasons = buildSeasonObject(thisYear);
+    // const nextYearSeasons = buildSeasonObject(nextYear);
+
+    setToday(today);
+    setCurrentYearSeasons(thisYearSeasons);
   }, []);
 
-  // month is an array that starts at 0
-  // 8 = Sept | 11 = Dec.
-  const FALL_START = { month: 8, day: 23 };
-  const FALL_END = { month: 10, day: 20 };
-
-  switch (month) {
-    case 3:
-      return { isFall: day == 1 }; //April Fool's Day
-    case 8:
-      return { isFall: day >= FALL_START.day };
-    case 9:
-    case 10:
-      return { isFall: true };
-    case 11:
-      return { isFall: day <= FALL_END.day };
-    default:
+  switch (currentYearSeasons.fall) {
+    case 0:
       return { isLoading: true };
+    default:
+      return {
+        isFall:
+          today >= currentYearSeasons.fall && today < currentYearSeasons.winter,
+      };
   }
 }
