@@ -7,7 +7,7 @@ import useFall from "../hooks/useFall";
 const FallTheme = () => {
   const { isFall } = useFall();
   const mode = "light";
-  const bg = isFall ? "#8b4513" : "#0088aa";
+  const bg = isFall ? "#8b4513" : "#8899aa";
   const fontColor = isFall ? "#fff" : "#121212";
 
   const fallPalette = createPalette({
@@ -35,7 +35,7 @@ const FallTheme = () => {
       MuiAppBar: {
         styleOverrides: {
           root: {
-            backgroundColor: isFall ? "#fff1" : "#fff1",
+            backgroundColor: isFall ? "#fff1" : "#09f3",
           },
         },
       },
