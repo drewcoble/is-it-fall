@@ -28,9 +28,9 @@ export default function Home() {
       <Stack
         sx={{
           alignItems: "center",
-          height: "100vh",
+          height: "100dvh",
           justifyContent: "center",
-          paddingTop: 8,
+          paddingTop: 0,
           width: "100%",
         }}
       >
