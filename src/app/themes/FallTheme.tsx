@@ -4,15 +4,35 @@ import { createTheme } from "@mui/material";
 import createPalette from "@mui/material/styles/createPalette";
 import useFall from "../hooks/useFall";
 
+// const SPRING_COLORS = {
+//   bg: "",
+//   font: "",
+// };
+
+// const SUMMER_COLORS = {
+//   bg: "",
+//   font: "",
+// };
+
+// const FALL_COLORS = {
+//   bg: ,
+//   font: "#fff",
+// };
+
+// const WINTER_COLORS = {
+//   bg: "#8899aa",
+//   font: "",
+// };
+
 const FallTheme = () => {
   const { isFall } = useFall();
   const mode = "light";
-  const bg = isFall ? "#8b4513" : "#8899aa";
-  const fontColor = isFall ? "#fff" : "#121212";
+  // const bg = isFall ? FALL_COLORS.bg : WINTER_COLORS.bg;
+  // const fontColor = isFall ? FALL_COLORS.font : WINTER_COLORS.font;
 
   const fallPalette = createPalette({
     background: {
-      default: bg,
+      default: "#8b4513",
     },
 
     mode: mode,
@@ -25,27 +45,46 @@ const FallTheme = () => {
       main: "#DEB887",
     },
     text: {
-      primary: fontColor,
+      primary: "#fff",
       secondary: "#DEB887",
     },
   });
+  // const winterPalette = createPalette({
+  //   background: {
+  //     default: "#8899aa",
+  //   },
+
+  //   mode: mode,
+  //   primary: {
+  //     contrastText: "#DEB887",
+  //     main: "#8b4513",
+  //   },
+  //   secondary: {
+  //     contrastText: "#efe3db",
+  //     main: "#DEB887",
+  //   },
+  //   text: {
+  //     primary: "#121212",
+  //     secondary: "#DEB887",
+  //   },
+  // });
 
   const theme = createTheme({
     components: {
       MuiAppBar: {
         styleOverrides: {
           root: {
-            backgroundColor: isFall ? "#fff1" : "#09f3",
+            backgroundColor: "#fff1",
           },
         },
       },
       MuiTypography: {
         styleOverrides: {
           h4: {
-            color: isFall ? "#fff" : "#121212",
+            color: "#fff",
           },
           h5: {
-            color: isFall ? "burlywood" : "#fff",
+            color: "burlywood",
           },
         },
       },
