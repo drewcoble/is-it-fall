@@ -2,6 +2,7 @@
 import useFall from "./hooks/useFall";
 import {
   AppBar,
+  Box,
   CircularProgress,
   CssBaseline,
   Stack,
@@ -9,10 +10,12 @@ import {
   Typography,
 } from "@mui/material";
 import FallTheme from "./themes/FallTheme";
+import TimeToFall from "./components/TimeToFall";
 
 export default function Home() {
   const { isFall, isLoading } = useFall();
   const fallString = isFall ? "YES" : "NO";
+
   const theme = FallTheme();
 
   // console.log(isFall);
@@ -127,9 +130,7 @@ export default function Home() {
         }}
       >
         {isLoading ? (
-          <CircularProgress
-            sx={{ color: isFall ? theme.palette.secondary.main : "#fff9" }}
-          />
+          <CircularProgress sx={{ color: theme.palette.secondary.main }} />
         ) : (
           <>
             <Typography
@@ -138,6 +139,7 @@ export default function Home() {
             >
               {fallString}
             </Typography>
+            <TimeToFall />
           </>
         )}
       </Stack>

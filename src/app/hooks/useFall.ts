@@ -47,6 +47,7 @@ const buildSeasonObject = (year: ISeasonYear): ISeasonObject => {
 export default function useFall(): {
   isFall?: boolean;
   isLoading?: boolean;
+  nextFallStart?: number;
   season?: string;
 } {
   const [utcTime, setUtcTime] = useState<number>(0);
@@ -57,22 +58,29 @@ export default function useFall(): {
     fall: 0,
     winter: 0,
   });
+  const [nextYearSeasons, setNextYearSeasons] = useState<ISeasonObject>({
+    spring: 0,
+    summer: 0,
+    fall: 0,
+    winter: 0,
+  });
 
   useEffect(() => {
     const year = new Date().getUTCFullYear();
     const month = new Date().getMonth() + 1;
     const day = new Date().getDate();
-    const utcTime = new Date().getTime();
+    const time = new Date().getTime();
 
     const thisYear = seasonData.find((x) => x.year === year) as ISeasonYear;
-    // const nextYear = seasonData.find((x) => x.year === year + 1) as ISeasonYear;
+    const nextYear = seasonData.find((x) => x.year === year + 1) as ISeasonYear;
 
-    const thisYearSeasons = buildSeasonObject(thisYear);
-    // const nextYearSeasons = buildSeasonObject(nextYear);
+    const thisSeasons = buildSeasonObject(thisYear);
+    const nextSeasons = buildSeasonObject(nextYear);
 
-    setUtcTime(utcTime);
+    setUtcTime(time);
     setAprilFools(month === 4 && day === 1);
-    setCurrentYearSeasons(thisYearSeasons);
+    setCurrentYearSeasons(thisSeasons);
+    setNextYearSeasons(nextSeasons);
   }, []);
 
   switch (currentYearSeasons.fall) {
@@ -84,6 +92,10 @@ export default function useFall(): {
           (utcTime >= currentYearSeasons.fall &&
             utcTime < currentYearSeasons.winter) ||
           aprilFools,
+        nextFallStart:
+          utcTime < currentYearSeasons.fall
+            ? currentYearSeasons.fall
+            : nextYearSeasons.fall,
       };
   }
 }
