@@ -78,6 +78,14 @@ const FallTheme = () => {
           },
         },
       },
+      MuiButton: {
+        styleOverrides: {
+          root: {
+            textAlign: "center",
+            textTransform: "none",
+          },
+        },
+      },
       MuiTypography: {
         styleOverrides: {
           h4: {

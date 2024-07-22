@@ -3,6 +3,7 @@ import useFall from "./hooks/useFall";
 import {
   AppBar,
   Box,
+  Button,
   CircularProgress,
   CssBaseline,
   Stack,
@@ -116,9 +117,24 @@ export default function Home() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <AppBar elevation={0} sx={{ justifyContent: "center", padding: 2 }}>
-        <Typography sx={{ letterSpacing: 2 }} variant="h5">
-          isitfall.us
-        </Typography>
+        <Stack
+          alignItems="center"
+          direction="row"
+          justifyContent="space-between"
+        >
+          <Typography sx={{ letterSpacing: 2 }} variant="h5">
+            isitfall.us
+          </Typography>
+          <Box sx={{ maxWidth: "50%" }}>
+            <Button
+              href="https://venmo.com/isitfall?txn=pay&audience=public&amount=6.50&note=pumpkin%20spice%20latte%20%E2%98%95%EF%B8%8F"
+              color="secondary"
+              variant="outlined"
+            >
+              Buy me a Pumpkin Spice Latte&nbsp;&nbsp;☕️
+            </Button>
+          </Box>
+        </Stack>
       </AppBar>
       <Stack
         sx={{
