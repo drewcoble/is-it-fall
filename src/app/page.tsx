@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import FallTheme from "./themes/FallTheme";
 import TimeToFall from "./components/TimeToFall";
+import AdsenseExample from "./components/AdsenseExample";
 
 export default function Home() {
   const { isFall, isLoading } = useFall();
@@ -120,28 +121,36 @@ export default function Home() {
           isitfall.us
         </Typography>
       </AppBar>
+
       <Stack
         sx={{
           alignItems: "center",
           height: "100dvh",
-          justifyContent: "center",
+          justifyContent: "flex-start",
           paddingTop: 0,
           width: "100%",
         }}
       >
-        {isLoading ? (
-          <CircularProgress sx={{ color: theme.palette.secondary.main }} />
-        ) : (
-          <>
-            <Typography
-              sx={{ fontWeight: "700", letterSpacing: 2 }}
-              variant="h4"
-            >
-              {fallString}
-            </Typography>
-            <TimeToFall />
-          </>
-        )}
+        <AdsenseExample />
+        <Stack
+          height="100%"
+          width="100%"
+          sx={{ alignItems: "center", justifyContent: "center", paddingTop: 0 }}
+        >
+          {isLoading ? (
+            <CircularProgress sx={{ color: theme.palette.secondary.main }} />
+          ) : (
+            <>
+              <Typography
+                sx={{ fontWeight: "700", letterSpacing: 2 }}
+                variant="h4"
+              >
+                {fallString}
+              </Typography>
+              <TimeToFall />
+            </>
+          )}
+        </Stack>
       </Stack>
     </ThemeProvider>
   );
