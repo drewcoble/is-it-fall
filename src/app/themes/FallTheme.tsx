@@ -81,6 +81,7 @@ const FallTheme = () => {
       MuiButton: {
         styleOverrides: {
           root: {
+            borderRadius: "22px",
             textAlign: "center",
             textTransform: "none",
           },
