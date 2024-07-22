@@ -12,6 +12,8 @@ import {
 import FallTheme from "./themes/FallTheme";
 import TimeToFall from "./components/TimeToFall";
 import AdsenseExample from "./components/AdsenseExample";
+import { Adsense } from "@ctrl/react-adsense";
+import "../css/AdsenseStylesheet.css";
 
 export default function Home() {
   const { isFall, isLoading } = useFall();
@@ -131,7 +133,11 @@ export default function Home() {
           width: "100%",
         }}
       >
-        <AdsenseExample />
+        <Adsense
+          className="ExampleAdSlot"
+          client="ca-pub-7669051272217779"
+          slot=""
+        />
         <Stack
           height="100%"
           width="100%"
