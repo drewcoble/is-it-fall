@@ -5,6 +5,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import CircularProgress from "@mui/material/CircularProgress";
 import FallTheme from "../themes/FallTheme";
+import React from "react";
 
 const SECONDS_MULTIPLIER = 1000;
 const MINUTES_MULTIPLIER = SECONDS_MULTIPLIER * 60;
@@ -12,61 +13,58 @@ const HOURS_MULTIPLIER = MINUTES_MULTIPLIER * 60;
 const DAYS_MULTIPLIER = HOURS_MULTIPLIER * 24;
 
 const TimeToFall = () => {
-  const { isFall, nextFallStart } = useFall();
+  const { fallEnd, isFall, nextFallStart } = useFall();
   const theme = FallTheme();
 
-  const [daysToFall, setDaysToFall] = useState<number>(0);
-  const [hoursToFall, setHoursToFall] = useState<number>(0);
-  const [minutesToFall, setMinutesToFall] = useState<number>(0);
-  const [secondsToFall, setSecondsToFall] = useState<number>();
-  const [msToFall, setMsToFall] = useState<number>();
+  const [daysToTime, setDaysToTime] = useState<number>(0);
+  const [hoursToTime, setHoursToTime] = useState<number>(0);
+  const [minutesToTime, setMinutesToTime] = useState<number>(0);
+  const [secondsToTime, setSecondsToTime] = useState<number>();
+  const [msToTime, setMsToTime] = useState<number>();
 
   useEffect(() => {
-    if (msToFall === undefined && nextFallStart !== undefined) {
-      setMsToFall(Math.ceil(nextFallStart - new Date().getTime()));
-    } else if (msToFall !== undefined) {
+    if (!isFall && msToTime === undefined && nextFallStart !== undefined) {
+      setMsToTime(Math.ceil(nextFallStart - new Date().getTime()));
+    } else if (msToTime === undefined && fallEnd !== undefined) {
+      setMsToTime(Math.ceil(fallEnd - new Date().getTime()));
+    } else if (msToTime !== undefined) {
       setTimeout(() => {
-        setMsToFall(msToFall - 1000);
-        setSecondsToFall(Math.floor(msToFall / SECONDS_MULTIPLIER));
-        setMinutesToFall(Math.floor(msToFall / MINUTES_MULTIPLIER));
-        setHoursToFall(Math.floor(msToFall / HOURS_MULTIPLIER));
-        setDaysToFall(Math.floor(msToFall / DAYS_MULTIPLIER));
+        setMsToTime(msToTime - 1000);
+        setSecondsToTime(Math.floor(msToTime / SECONDS_MULTIPLIER));
+        setMinutesToTime(Math.floor(msToTime / MINUTES_MULTIPLIER));
+        setHoursToTime(Math.floor(msToTime / HOURS_MULTIPLIER));
+        setDaysToTime(Math.floor(msToTime / DAYS_MULTIPLIER));
       }, 1000);
     }
-  }, [msToFall, nextFallStart]);
+  }, [fallEnd, isFall, msToTime, nextFallStart]);
 
   return (
     <Box
       sx={{
         alignItems: "center",
         background: "#ffffff05",
-        bottom: 0,
         justifyContent: "center",
-        paddingY: 3,
-        position: "fixed",
+        paddingX: 2,
+        paddingY: 2,
         width: "100vw",
       }}
     >
-      {isFall ? (
-        <Typography variant="h5">It&apos;s fall y&apos;all</Typography>
-      ) : (
-        <Typography textAlign="center" variant="h5">
-          Fall starts in:{" "}
-          {secondsToFall !== undefined ? (
-            <>
-              {daysToFall}&nbsp;days {hoursToFall - daysToFall * 24}
-              &nbsp;hours {minutesToFall - hoursToFall * 60}
-              &nbsp;minutes {secondsToFall - minutesToFall * 60}
-              &nbsp;seconds
-            </>
-          ) : (
-            <CircularProgress
-              size="1.25rem"
-              sx={{ color: theme.palette.secondary.main }}
-            />
-          )}
-        </Typography>
-      )}
+      <Typography color="secondary" textAlign="center" variant="body1">
+        Fall {isFall ? "ends" : "starts"} in:{" "}
+        {secondsToTime !== undefined ? (
+          <React.Fragment>
+            {daysToTime}&nbsp;days {hoursToTime - daysToTime * 24}
+            &nbsp;hours {minutesToTime - hoursToTime * 60}
+            &nbsp;minutes {secondsToTime - minutesToTime * 60}
+            &nbsp;seconds
+          </React.Fragment>
+        ) : (
+          <CircularProgress
+            size="1rem"
+            sx={{ color: theme.palette.secondary.main }}
+          />
+        )}
+      </Typography>
     </Box>
   );
 };

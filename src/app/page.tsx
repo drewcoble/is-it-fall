@@ -12,9 +12,8 @@ import {
 } from "@mui/material";
 import FallTheme from "./themes/FallTheme";
 import TimeToFall from "./components/TimeToFall";
-import AdsenseExample from "./components/AdsenseExample";
-import { Adsense } from "@ctrl/react-adsense";
 import "../css/AdsenseStylesheet.css";
+import Header from "./components/Header";
 
 export default function Home() {
   const { isFall, isLoading } = useFall();
@@ -119,28 +118,8 @@ export default function Home() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <AppBar elevation={0} sx={{ justifyContent: "center", padding: 2 }}>
-        <Stack
-          alignItems="center"
-          direction="row"
-          justifyContent="space-between"
-        >
-          <Typography sx={{ letterSpacing: 2 }} variant="h5">
-            isitfall.us
-          </Typography>
-          <Box sx={{ maxWidth: "50%" }}>
-            <Button
-              href="https://venmo.com/isitfall?txn=pay&audience=public&amount=6.50&note=pumpkin%20spice%20latte%20%E2%98%95%EF%B8%8F"
-              color="secondary"
-              variant="outlined"
-            >
-              Buy me a Pumpkin Spice Latte&nbsp;&nbsp;☕️
-            </Button>
-          </Box>
-        </Stack>
-      </AppBar>
-
-      <Stack
+      <Header />
+      {/* <Stack
         sx={{
           alignItems: "center",
           height: "100dvh",
@@ -153,27 +132,45 @@ export default function Home() {
           className="ExampleAdSlot"
           client="ca-pub-7669051272217779"
           slot=""
-        />
-        <Stack
-          height="100%"
-          width="100%"
-          sx={{ alignItems: "center", justifyContent: "center", paddingTop: 0 }}
-        >
-          {isLoading ? (
-            <CircularProgress sx={{ color: theme.palette.secondary.main }} />
-          ) : (
-            <>
-              <Typography
-                sx={{ fontWeight: "700", letterSpacing: 2 }}
-                variant="h4"
+        /> */}
+      <Stack
+        height="100dvh"
+        width="100%"
+        sx={{ alignItems: "center", justifyContent: "center", paddingTop: 0 }}
+      >
+        {isLoading ? (
+          <CircularProgress sx={{ color: theme.palette.secondary.main }} />
+        ) : (
+          <>
+            <Typography
+              sx={{ fontWeight: "700", letterSpacing: 2 }}
+              variant="h4"
+            >
+              {fallString}
+            </Typography>
+            <Stack
+              spacing={2}
+              sx={{
+                alignItems: "center",
+                bottom: 0,
+                justifyContent: "center",
+                position: "fixed",
+                width: "100vw",
+              }}
+            >
+              <Button
+                href="https://venmo.com/isitfall?txn=pay&audience=public&amount=6.50&note=pumpkin%20spice%20latte%20%E2%98%95%EF%B8%8F"
+                color="secondary"
+                variant="outlined"
               >
-                {fallString}
-              </Typography>
+                Buy me a Pumpkin Spice Latte&nbsp;&nbsp;☕️
+              </Button>
               <TimeToFall />
-            </>
-          )}
-        </Stack>
+            </Stack>
+          </>
+        )}
       </Stack>
+      {/* </Stack> */}
     </ThemeProvider>
   );
 }

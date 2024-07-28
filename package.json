@@ -10,9 +10,10 @@
   },
   "dependencies": {
     "@ctrl/react-adsense": "^1.7.0",
-    "@emotion/react": "^11.11.1",
-    "@emotion/styled": "^11.11.0",
-    "@mui/material": "^5.14.18",
+    "@emotion/react": "^11.13.0",
+    "@emotion/styled": "^11.13.0",
+    "@mui/icons-material": "^5.16.5",
+    "@mui/material": "^5.16.5",
     "@vercel/analytics": "^1.1.1",
     "next": "^14.2.5",
     "react": "^18",

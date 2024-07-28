@@ -45,6 +45,7 @@ const buildSeasonObject = (year: ISeasonYear): ISeasonObject => {
 };
 
 export default function useFall(): {
+  fallEnd?: number;
   isFall?: boolean;
   isLoading?: boolean;
   nextFallStart?: number;
@@ -88,6 +89,7 @@ export default function useFall(): {
       return { isLoading: true };
     default:
       return {
+        fallEnd: currentYearSeasons.winter,
         isFall:
           (utcTime >= currentYearSeasons.fall &&
             utcTime < currentYearSeasons.winter) ||
