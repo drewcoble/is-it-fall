@@ -87,6 +87,13 @@ const FallTheme = () => {
           },
         },
       },
+      MuiLink: {
+        styleOverrides: {
+          root: {
+            color: "#fff",
+          },
+        },
+      },
       MuiTypography: {
         styleOverrides: {
           h4: {
