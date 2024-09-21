@@ -23,10 +23,10 @@ const links = [
     name: "FAQs",
     route: "/faqs",
   },
-  // {
-  //   name: "Supporters",
-  //   route: "/supporters",
-  // },
+  {
+    name: "Supporters",
+    route: "/supporters",
+  },
 ];
 
 const MenuContent = () => {
