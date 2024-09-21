@@ -1,9 +1,6 @@
 "use client";
 import useFall from "./hooks/useFall";
 import {
-  AppBar,
-  Box,
-  Button,
   CircularProgress,
   CssBaseline,
   Stack,
@@ -14,7 +11,6 @@ import FallTheme from "./themes/FallTheme";
 import TimeToFall from "./components/TimeToFall";
 import "../css/AdsenseStylesheet.css";
 import Header from "./components/Header";
-import BuyMeALatte from "./components/BuyMeALatte";
 
 export default function Home() {
   const { isFall, isLoading } = useFall();
@@ -51,7 +47,6 @@ export default function Home() {
                 width: "100vw",
               }}
             >
-              {/* <BuyMeALatte /> */}
               <TimeToFall />
             </Stack>
           </>

@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import CircularProgress from "@mui/material/CircularProgress";
 import FallTheme from "../themes/FallTheme";
 import React from "react";
+import { useRouter } from "next/navigation";
 
 const SECONDS_MULTIPLIER = 1000;
 const MINUTES_MULTIPLIER = SECONDS_MULTIPLIER * 60;
@@ -15,6 +16,7 @@ const DAYS_MULTIPLIER = HOURS_MULTIPLIER * 24;
 const TimeToFall = () => {
   const { fallEnd, isFall, nextFallStart } = useFall();
   const theme = FallTheme();
+  const router = useRouter();
 
   const [daysToTime, setDaysToTime] = useState<number>(0);
   const [hoursToTime, setHoursToTime] = useState<number>(0);
@@ -23,7 +25,13 @@ const TimeToFall = () => {
   const [msToTime, setMsToTime] = useState<number>();
 
   useEffect(() => {
-    if (!isFall && msToTime === undefined && nextFallStart !== undefined) {
+    if (msToTime !== undefined && msToTime <= 1000) {
+      router.push("/", { scroll: false });
+    } else if (
+      !isFall &&
+      msToTime === undefined &&
+      nextFallStart !== undefined
+    ) {
       setMsToTime(Math.ceil(nextFallStart - new Date().getTime()));
     } else if (msToTime === undefined && fallEnd !== undefined) {
       setMsToTime(Math.ceil(fallEnd - new Date().getTime()));
@@ -36,7 +44,7 @@ const TimeToFall = () => {
         setDaysToTime(Math.floor(msToTime / DAYS_MULTIPLIER));
       }, 1000);
     }
-  }, [fallEnd, isFall, msToTime, nextFallStart]);
+  }, [fallEnd, isFall, msToTime, nextFallStart, router]);
 
   return (
     <Box

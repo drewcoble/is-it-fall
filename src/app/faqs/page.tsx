@@ -1,20 +1,12 @@
 "use client";
 import React from "react";
-import {
-  Box,
-  CssBaseline,
-  Divider,
-  Stack,
-  ThemeProvider,
-  Typography,
-} from "@mui/material";
-import Header from "../components/Header";
-import FallTheme from "../themes/FallTheme";
+import { Stack, Typography } from "@mui/material";
 import MainPageWrapper from "../components/MainPageWrapper";
 import FaqItem from "./FaqItem";
+import useFall from "../hooks/useFall";
 
 export default function Info() {
-  const theme = FallTheme();
+  const { isFall } = useFall();
   return (
     <MainPageWrapper>
       <Stack spacing={1}>
@@ -22,7 +14,7 @@ export default function Info() {
           FAQs
         </Typography>
         <br />
-
+        <FaqItem title="Is it fall?">{isFall ? "Yes." : "No."}</FaqItem>
         <FaqItem title="When does fall start?">
           <React.Fragment>
             Fall has a different starting date/time every year.
@@ -31,7 +23,6 @@ export default function Info() {
             it is fall, down to the minute.
           </React.Fragment>
         </FaqItem>
-        {/* <FaqItem title="Item #2">This is FAQ Item #2.</FaqItem> */}
       </Stack>
     </MainPageWrapper>
   );
