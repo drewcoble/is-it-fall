@@ -9,7 +9,7 @@ export default function Info() {
     <MainPageWrapper>
       <Stack spacing={1} justifyContent="space-between">
         <Typography textAlign="center" variant="h5">
-          Supporters
+          Thank you to all our supporters!
         </Typography>
         <br />
         <Box alignItems="center" display="flex" gap={1} justifyContent="center">
