@@ -25,24 +25,24 @@ const TimeToFall = () => {
   const [msToTime, setMsToTime] = useState<number>();
 
   useEffect(() => {
-    if (msToTime !== undefined && msToTime <= 1000) {
-      router.push("/", { scroll: false });
-    } else if (
-      !isFall &&
-      msToTime === undefined &&
-      nextFallStart !== undefined
-    ) {
-      setMsToTime(Math.ceil(nextFallStart - new Date().getTime()));
-    } else if (msToTime === undefined && fallEnd !== undefined) {
-      setMsToTime(Math.ceil(fallEnd - new Date().getTime()));
-    } else if (msToTime !== undefined) {
-      setTimeout(() => {
-        setMsToTime(msToTime - 1000);
-        setSecondsToTime(Math.floor(msToTime / SECONDS_MULTIPLIER));
-        setMinutesToTime(Math.floor(msToTime / MINUTES_MULTIPLIER));
-        setHoursToTime(Math.floor(msToTime / HOURS_MULTIPLIER));
-        setDaysToTime(Math.floor(msToTime / DAYS_MULTIPLIER));
-      }, 1000);
+    if (msToTime === undefined) {
+      if (!isFall && nextFallStart !== undefined) {
+        setMsToTime(Math.ceil(nextFallStart - new Date().getTime()));
+      } else if (fallEnd !== undefined) {
+        setMsToTime(Math.ceil(fallEnd - new Date().getTime()));
+      }
+    } else {
+      if (msToTime <= 1000) {
+        router.push("/", { scroll: false });
+      } else {
+        setTimeout(() => {
+          setMsToTime(msToTime - 1000);
+          setSecondsToTime(Math.floor(msToTime / SECONDS_MULTIPLIER));
+          setMinutesToTime(Math.floor(msToTime / MINUTES_MULTIPLIER));
+          setHoursToTime(Math.floor(msToTime / HOURS_MULTIPLIER));
+          setDaysToTime(Math.floor(msToTime / DAYS_MULTIPLIER));
+        }, 1000);
+      }
     }
   }, [fallEnd, isFall, msToTime, nextFallStart, router]);
 

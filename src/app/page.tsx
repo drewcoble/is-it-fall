@@ -11,11 +11,11 @@ import FallTheme from "./themes/FallTheme";
 import TimeToFall from "./components/TimeToFall";
 import "../css/AdsenseStylesheet.css";
 import Header from "./components/Header";
+import React from "react";
 
 export default function Home() {
   const { isFall, isLoading } = useFall();
   const fallString = isFall ? "YES" : "NO";
-
   const theme = FallTheme();
 
   return (
@@ -30,7 +30,7 @@ export default function Home() {
         {isLoading ? (
           <CircularProgress sx={{ color: theme.palette.secondary.main }} />
         ) : (
-          <>
+          <React.Fragment>
             <Typography
               sx={{ fontWeight: "700", letterSpacing: 2 }}
               variant="h4"
@@ -49,7 +49,7 @@ export default function Home() {
             >
               <TimeToFall />
             </Stack>
-          </>
+          </React.Fragment>
         )}
       </Stack>
     </ThemeProvider>
