@@ -1,22 +1,42 @@
 "use client";
 import React from "react";
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Divider, Grid, Stack, Typography } from "@mui/material";
 import MainPageWrapper from "../components/MainPageWrapper";
 import BuyMeALatte from "../components/BuyMeALatte";
 
 export default function Info() {
   return (
     <MainPageWrapper>
-      <Stack spacing={1} justifyContent="space-between">
+      <Stack alignItems="center" spacing={1} justifyContent="space-between">
         <Typography textAlign="center" variant="h5">
           Thank you to all our supporters!
         </Typography>
         <br />
-        <Box alignItems="center" display="flex" gap={1} justifyContent="center">
-          <Typography fontSize="1px">· Tyler Giffel</Typography>
-          <Typography fontSize="10px">☕️ Mariah Coble</Typography>
-          <Typography fontSize="10px">☕️ Mallory Meyer</Typography>
-        </Box>
+        <Grid
+          container
+          flexDirection="column"
+          gap={1}
+          justifyContent="center"
+          maxWidth="500px"
+          width="100%"
+        >
+          <Grid item paddingLeft={2}>
+            <Typography fontSize="16.5px">☕️☕️ Trey Jones </Typography>
+          </Grid>
+          <Grid item>
+            <Divider />
+          </Grid>
+          <Grid item paddingLeft={2}>
+            <Typography fontSize="10px">☕️ Mariah Coble</Typography>
+            <Typography fontSize="10px">☕️ Mallory Meyer</Typography>
+          </Grid>
+          <Grid item>
+            <Divider />
+          </Grid>
+          <Grid item paddingLeft={2}>
+            <Typography fontSize="6px">· Tyler Giffel</Typography>
+          </Grid>
+        </Grid>
         <Box
           alignItems="center"
           bottom="0"
