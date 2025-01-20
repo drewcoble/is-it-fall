@@ -4,6 +4,7 @@ const BuyMeALatte = () => (
   <Button
     href="https://venmo.com/isitfall?txn=pay&audience=public&amount=6.50&note=pumpkin%20spice%20latte%20%E2%98%95%EF%B8%8F"
     color="secondary"
+    target="_blank"
     variant="outlined"
   >
     Buy me a Pumpkin Spice Latte&nbsp;&nbsp;☕️

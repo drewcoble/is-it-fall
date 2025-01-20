@@ -1,12 +1,13 @@
 "use client";
-import { useEffect, useState } from "react";
-import useFall from "../hooks/useFall";
+import { useContext, useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import CircularProgress from "@mui/material/CircularProgress";
 import FallTheme from "../themes/FallTheme";
 import React from "react";
-import { useRouter } from "next/navigation";
+import { FallContext } from "../contexts/fallContext";
+import Grid from "@mui/material/Grid";
+import { getFall } from "../utilities/fallUtilities";
 
 const SECONDS_MULTIPLIER = 1000;
 const MINUTES_MULTIPLIER = SECONDS_MULTIPLIER * 60;
@@ -14,65 +15,103 @@ const HOURS_MULTIPLIER = MINUTES_MULTIPLIER * 60;
 const DAYS_MULTIPLIER = HOURS_MULTIPLIER * 24;
 
 const TimeToFall = () => {
-  const { fallEnd, isFall, nextFallStart } = useFall();
+  const { isFall, setIsFall } = useContext(FallContext);
   const theme = FallTheme();
-  const router = useRouter();
 
-  const [daysToTime, setDaysToTime] = useState<number>(0);
-  const [hoursToTime, setHoursToTime] = useState<number>(0);
-  const [minutesToTime, setMinutesToTime] = useState<number>(0);
-  const [secondsToTime, setSecondsToTime] = useState<number>();
-  const [msToTime, setMsToTime] = useState<number>();
+  const [seasonChange, setSeasonChange] = useState<boolean>(false);
+  const [timeOfLoad, setTimeOfLoad] = useState(new Date().getTime());
+  const [msSinceLoad, setMsSinceLoad] = useState<number>(0);
+  const [nextTime, setNextTime] = useState<number>(0);
+
+  const msToTime = nextTime - timeOfLoad;
+  const updatedMsToTime = msToTime - msSinceLoad;
+
+  const daysToTime = Math.floor(updatedMsToTime / DAYS_MULTIPLIER);
+  const daysInMs = daysToTime * DAYS_MULTIPLIER;
+
+  const hoursToTime = Math.floor(
+    (updatedMsToTime - daysInMs) / HOURS_MULTIPLIER
+  );
+  const hoursInMs = daysInMs + hoursToTime * HOURS_MULTIPLIER;
+
+  const minutesToTime = Math.floor(
+    (updatedMsToTime - hoursInMs) / MINUTES_MULTIPLIER
+  );
+  const minutesInMs = hoursInMs + minutesToTime * MINUTES_MULTIPLIER;
+
+  const secondsToTime = Math.floor(
+    (updatedMsToTime - minutesInMs) / SECONDS_MULTIPLIER
+  );
 
   useEffect(() => {
-    if (msToTime === undefined) {
-      if (!isFall && nextFallStart !== undefined) {
-        setMsToTime(Math.ceil(nextFallStart - new Date().getTime()));
-      } else if (fallEnd !== undefined) {
-        setMsToTime(Math.ceil(fallEnd - new Date().getTime()));
-      }
-    } else {
-      if (msToTime <= 1000) {
-        router.push("/", { scroll: false });
+    const { fallEnd, isFall, nextFallStart } = getFall(new Date());
+    setIsFall?.(isFall);
+    setNextTime(isFall ? fallEnd : nextFallStart);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [seasonChange]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (nextTime !== 0 && timeOfLoad + msSinceLoad >= nextTime) {
+        setTimeOfLoad(0);
+        setMsSinceLoad(0);
+        setSeasonChange(!seasonChange);
       } else {
-        setTimeout(() => {
-          setMsToTime(msToTime - 1000);
-          setSecondsToTime(Math.floor(msToTime / SECONDS_MULTIPLIER));
-          setMinutesToTime(Math.floor(msToTime / MINUTES_MULTIPLIER));
-          setHoursToTime(Math.floor(msToTime / HOURS_MULTIPLIER));
-          setDaysToTime(Math.floor(msToTime / DAYS_MULTIPLIER));
-        }, 1000);
+        setMsSinceLoad(msSinceLoad + 1000);
       }
-    }
-  }, [fallEnd, isFall, msToTime, nextFallStart, router]);
+    }, 1000);
+  }, [msSinceLoad]);
 
   return (
     <Box
       sx={{
         alignItems: "center",
-        background: "#ffffff05",
+        background: `${theme.palette.secondary.main}11`,
+        bottom: 0,
         justifyContent: "center",
+        minHeight: 56,
         paddingX: 2,
         paddingY: 2,
+        position: "fixed",
         width: "100vw",
       }}
     >
-      <Typography color="secondary" textAlign="center" variant="body1">
-        Fall {isFall ? "ends" : "starts"} in:{" "}
-        {secondsToTime !== undefined ? (
-          <React.Fragment>
-            {daysToTime}&nbsp;days {hoursToTime - daysToTime * 24}
-            &nbsp;hours {minutesToTime - hoursToTime * 60}
-            &nbsp;minutes {secondsToTime - minutesToTime * 60}
-            &nbsp;seconds
-          </React.Fragment>
-        ) : (
+      <Grid alignItems="center" container gap={0.75} justifyContent="center">
+        {isFall === undefined ? (
           <CircularProgress
-            size="1rem"
+            size="1.2rem"
             sx={{ color: theme.palette.secondary.main }}
           />
+        ) : (
+          <React.Fragment>
+            <Grid item sm="auto" xs={12}>
+              <Typography color="secondary" textAlign="center" variant="body1">
+                &nbsp;Fall {isFall ? "ends" : "starts"} in:&nbsp;&nbsp;
+              </Typography>
+            </Grid>
+            <Grid item xs="auto">
+              <Typography color="secondary" textAlign="center" variant="body1">
+                {daysToTime}&nbsp;days&nbsp;
+              </Typography>
+            </Grid>
+            <Grid item xs="auto">
+              <Typography color="secondary" textAlign="center" variant="body1">
+                {hoursToTime}&nbsp;hours&nbsp;
+              </Typography>
+            </Grid>
+            <Grid item xs="auto">
+              <Typography color="secondary" textAlign="center" variant="body1">
+                {minutesToTime}&nbsp;minutes&nbsp;
+              </Typography>
+            </Grid>
+            <Grid item xs="auto">
+              <Typography color="secondary" textAlign="center" variant="body1">
+                {secondsToTime}&nbsp;seconds
+              </Typography>
+            </Grid>
+          </React.Fragment>
         )}
-      </Typography>
+      </Grid>
     </Box>
   );
 };
