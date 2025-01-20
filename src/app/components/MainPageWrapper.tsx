@@ -22,7 +22,7 @@ const MainPageWrapper = ({
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Header />
-        <Box height="100vh" minHeight="100dvh" p={3} pt="88px">
+        <Box height="100dvh" minHeight="100dvh" p={3} pt="88px">
           {children}
         </Box>
       </ThemeProvider>
