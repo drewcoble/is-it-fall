@@ -2,7 +2,7 @@
 
 import { createTheme } from "@mui/material";
 import createPalette from "@mui/material/styles/createPalette";
-import useFall from "../hooks/useFall";
+// import useFall from "../hooks/useFall";
 
 // const SPRING_COLORS = {
 //   bg: "",
@@ -25,7 +25,7 @@ import useFall from "../hooks/useFall";
 // };
 
 const FallTheme = () => {
-  const { isFall } = useFall();
+  // const { isFall } = useFall();
   const mode = "light";
   // const bg = isFall ? FALL_COLORS.bg : WINTER_COLORS.bg;
   // const fontColor = isFall ? FALL_COLORS.font : WINTER_COLORS.font;
