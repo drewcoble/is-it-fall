@@ -3,13 +3,13 @@ import { CircularProgress, Stack, Typography } from "@mui/material";
 import FallTheme from "./themes/FallTheme";
 import TimeToFall from "./components/TimeToFall";
 import "../css/AdsenseStylesheet.css";
-import React, { useContext } from "react";
+import React, { useContext, useMemo } from "react";
 import { FallContext } from "./contexts/fallContext";
 
 export default function Home() {
   const { isFall } = useContext(FallContext);
   const theme = FallTheme();
-  const fallString = isFall ? "YES" : "NO";
+  const fallString = useMemo(() => (isFall ? "YES" : "NO"), [isFall]);
 
   return (
     <Stack
@@ -20,11 +20,9 @@ export default function Home() {
       {isFall === undefined ? (
         <CircularProgress sx={{ color: theme.palette.secondary.main }} />
       ) : (
-        <React.Fragment>
-          <Typography sx={{ fontWeight: "700", letterSpacing: 2 }} variant="h4">
-            {fallString}
-          </Typography>
-        </React.Fragment>
+        <Typography sx={{ fontWeight: "700", letterSpacing: 2 }} variant="h4">
+          {fallString}
+        </Typography>
       )}
       <TimeToFall />
     </Stack>
