@@ -13,6 +13,7 @@ import BuyMeALatte from "./BuyMeALatte";
 import React from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import FallTheme from "../themes/FallTheme";
+import HemisphereToggle from "./HemisphereToggle";
 
 const links = [
   {
@@ -35,7 +36,7 @@ const MenuContent = () => {
 
   return (
     <React.Fragment>
-      <IconButton color="secondary" onClick={() => setMenuOpen(!menuOpen)}>
+      <IconButton color="secondary" onClick={() => setMenuOpen(true)}>
         <MenuIcon />
       </IconButton>
       <Drawer open={menuOpen} onClose={() => setMenuOpen(false)}>
@@ -68,9 +69,10 @@ const MenuContent = () => {
               </Grid>
             ))}
           </Grid>
-          <Box px={2}>
+          <Stack px={2} gap={2}>
+            <HemisphereToggle />
             <BuyMeALatte />
-          </Box>
+          </Stack>
         </Stack>
       </Drawer>
     </React.Fragment>

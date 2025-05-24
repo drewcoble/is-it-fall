@@ -1,5 +1,6 @@
 import seasonData from "../data";
 import { ISeason, ISeasonObject, ISeasonYear } from "../types/seasonTypes";
+import { getIsSouthernHemisphere } from "./hemisphereUtilities";
 
 const adjustHour = (season: ISeason): number => {
   return season.tod === "pm" ? season.hour + 12 : season.hour;
@@ -54,6 +55,7 @@ export const getSeasons = (year: number) => {
 };
 
 export const getFall = (date: Date) => {
+  const isSouthernHemisphere = getIsSouthernHemisphere();
   const year = date.getUTCFullYear();
   const month = date.getMonth() + 1;
   const day = date.getDate();
@@ -62,6 +64,19 @@ export const getFall = (date: Date) => {
   const isAprilFools = month === 4 && day === 1;
 
   const { nextYearSeasons, thisYearSeasons } = getSeasons(year);
+
+  if (isSouthernHemisphere) {
+    return {
+      fallEnd: thisYearSeasons.summer,
+      isFall: isAprilFools
+        ? false
+        : time >= thisYearSeasons.spring && time < thisYearSeasons.summer,
+      nextFallStart:
+        time < thisYearSeasons.spring
+          ? thisYearSeasons.spring
+          : nextYearSeasons.spring,
+    };
+  }
 
   return {
     fallEnd: thisYearSeasons.winter,
