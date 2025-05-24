@@ -5,7 +5,7 @@ import FaqItem from "./FaqItem";
 import { getFall } from "../utilities/fallUtilities";
 
 export default function Faqs() {
-  const { isFall } = getFall(new Date());
+  const { isFall } = useMemo(() => getFall(new Date()), []);
   const fallString = useMemo(() => (isFall ? "YES" : "NO"), [isFall]);
 
   return (
