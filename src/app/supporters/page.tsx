@@ -28,6 +28,7 @@ export default function Supporters() {
         <Grid item paddingLeft={2}>
           <Typography fontSize="10px">☕️ Mariah Coble</Typography>
           <Typography fontSize="10px">☕️ Mallory Meyer</Typography>
+          <Typography fontSize="10px">☕️ Shannon Purcell</Typography>
         </Grid>
         <Grid item>
           <Divider />
