@@ -14,7 +14,7 @@ const MINUTES_MULTIPLIER = SECONDS_MULTIPLIER * 60;
 const HOURS_MULTIPLIER = MINUTES_MULTIPLIER * 60;
 const DAYS_MULTIPLIER = HOURS_MULTIPLIER * 24;
 
-const TimeToFall = () => {
+const TimeToFall = ({ hidden }: { hidden?: boolean }) => {
   const { isFall, setIsFall } = useContext(FallContext);
   const theme = FallTheme();
 
@@ -61,6 +61,10 @@ const TimeToFall = () => {
       }
     }, 1000);
   }, [msSinceLoad]);
+
+  if (hidden) {
+    return <></>;
+  }
 
   return (
     <Box
