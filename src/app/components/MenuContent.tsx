@@ -52,7 +52,7 @@ const MenuContent = () => {
           <Grid container direction="column">
             <Grid item px={2}>
               <Typography sx={{ letterSpacing: 2 }} variant="h5">
-                isitfall.us
+                isitfall?
               </Typography>
             </Grid>
             <Grid item>

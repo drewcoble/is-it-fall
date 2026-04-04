@@ -23,8 +23,8 @@ export default function Faqs() {
           <React.Fragment>
             Fall has a different starting date/time every year.
             <br />
-            Lucky for you, <strong>isitfall.us</strong> will let you know when
-            it is fall, down to the minute.
+            Lucky for you, <strong>isitfall?</strong> will let you know when it
+            is fall, down to the minute.
           </React.Fragment>
         </FaqItem>
       </Stack>

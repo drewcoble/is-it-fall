@@ -11,7 +11,7 @@ const Header = () => {
       <Stack alignItems="center" direction="row" justifyContent="space-between">
         <MenuContent />
         <Typography sx={{ letterSpacing: 2 }} variant="h5">
-          isitfall.us
+          isitfall?
         </Typography>
       </Stack>
     </AppBar>
